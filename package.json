@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/fullstack3r/portfolio-api/issues"
   },
-  "homepage": "https://github.com/fullstack3r/portfolio-api#readme"
+  "homepage": "https://github.com/fullstack3r/portfolio-api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
