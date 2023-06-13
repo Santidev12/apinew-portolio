@@ -30,4 +30,23 @@ app.get("/projects/:id", (req, res) => {
   res.send(project);
 });
 
+// elimina elemento
+app.delete("/projects/:id", (req, res) => {
+  // obtener parametro :id
+  const id = req.params.id;
+  // obtener indice de proyecto
+  const index = projects.findIndex((p) => p.id == id);
+  // validar si existe el Indice
+  if (index == -1) {
+    res.status(404);
+    res.send("Not Found!");
+  }
+
+  // eliminar con splice
+  projects.splice(index, 1);
+
+  // responder "ok!"
+  res.send("ok!");
+});
+
 app.listen(3000, () => console.log("Servidor listo en http://localhost:3000"));
