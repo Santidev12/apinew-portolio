@@ -49,4 +49,23 @@ app.delete("/projects/:id", (req, res) => {
   res.send("ok!");
 });
 
+// actualizar
+app.put("/projects/:id", (req, res) => {
+  // extraer el id
+  const id = req.params.id;
+  // buscar proyecto
+  const project = projects.find((p) => p.id == id);
+  // validar si se encontro el proyecto
+  if (!project) {
+    res.status(404);
+    res.send("Proyecto no encontrado!");
+  }
+
+  // actualizar obj proyecto con el body
+  const body = req.body;
+  project.name = body.name;
+
+  res.send("ok!");
+});
+
 app.listen(3000, () => console.log("Servidor listo en http://localhost:3000"));
