@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // añade las rutas de projects.js
-app.use("/", express.static("web"));
+app.use("/", express.static("public"));
 app.use("/projects", projectsRouter);
 
 // Empezar a escuchar en el puerto 3000
