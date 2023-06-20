@@ -1,3 +1,6 @@
+import repository from "../repositories/projects.repository.js";
+
+
 let projects = [
   { id: 2, name: "Mi proyecto potato 2", img: "/assets/images/shop.svg" }, //0
   { id: 1, name: "Mi proyecto carrot 1", img: "/assets/images/shop.svg" }, //1
@@ -5,12 +8,13 @@ let projects = [
   { id: 4, name: "Mi proyecto carrot 4", img: "/assets/images/shop.svg" }, //3
 ];
 
-export function all(req, res) {
+export async function all(req, res) {
   const query = req.query;
+  const dbprojects = await repository.all();
 
   // Añadir validacion de search!
   if (!query.search) {
-    res.send(projects);
+    res.send(dbprojects);
     return;
   }
 
