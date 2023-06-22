@@ -23,9 +23,7 @@ async function one(id) {
   const db = await getDatabase();
   const collection = db.collection("projects");
 
-  const result = await collection.findOne({ _id: new ObjectId(id) });
-
-  return result;
+  return await collection.findOne({ _id: new ObjectId(id) });
 }
 
 // create
