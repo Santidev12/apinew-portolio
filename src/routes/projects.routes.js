@@ -1,12 +1,14 @@
 import { Router } from "express";
 import controller from "../controllers/projects.controller.js";
+import authenticate from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
 router.get("/", controller.all);
-router.post("/", controller.create);
 router.get("/:id", controller.one);
-router.delete("/:id", controller.remove);
-router.put("/:id", controller.update);
+
+router.post("/", authenticate, controller.create);
+router.delete("/:id", authenticate, controller.remove);
+router.put("/:id", authenticate, controller.update);
 
 export default router;
