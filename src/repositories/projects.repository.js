@@ -1,10 +1,9 @@
 import { MongoClient } from "mongodb";
 
-async function getDatabase() {
-  const url =
-    "mongodb+srv://fullstack3r:fullstack3r@portfolio-cluster.uatwpbi.mongodb.net/";
+const mongoUrl = process.env.MONGODB_URL; 
 
-  const client = new MongoClient(url);
+async function getDatabase() {
+  const client = new MongoClient(mongoUrl);
   await client.connect();
 
   const db = client.db("portfolio");
