@@ -1,6 +1,5 @@
 import repository from "../repositories/projects.repository.js";
 
-
 let projects = [
   { id: 2, name: "Mi proyecto potato 2", img: "/assets/images/shop.svg" }, //0
   { id: 1, name: "Mi proyecto carrot 1", img: "/assets/images/shop.svg" }, //1
@@ -30,10 +29,15 @@ export async function all(req, res) {
   res.send(result);
 }
 
-export function create(req, res) {
+export async function create(req, res) {
   const project = req.body;
-  projects.push(project);
-  res.send("ok!");
+  const result = await repository.create(project);
+
+  if (result.acknowledged) {
+    res.status(201).send("Proyecto creado con exito!");
+  } else {
+    res.status(500).send("Error al crear el proyecto");
+  }
 }
 
 export async function one(req, res) {
