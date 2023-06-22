@@ -32,6 +32,18 @@ async function create(project) {
 }
 
 // update
-// delete
+async function update(id, data) {
+  const collection = await getCollection();
 
-export default { all, one, create };
+  return collection.updateOne({ _id: new ObjectId(id) }, { $set: data });
+}
+
+// delete
+// db.projects.deleteOne({ _id: new ObjectId(id) })
+async function remove(id) {
+  const collection = await getCollection();
+
+  return await collection.deleteOne({ _id: new ObjectId(id) });
+}
+
+export default { all, one, create, update, remove };

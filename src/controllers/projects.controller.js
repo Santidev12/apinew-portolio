@@ -50,40 +50,26 @@ export async function one(req, res) {
   res.send(project);
 }
 
-export function destroy(req, res) {
-  // obtener parametro :id
+export async function remove(req, res) {
   const id = req.params.id;
-  // obtener indice de proyecto
-  const index = projects.findIndex((p) => p.id == id);
-  // validar si existe el Indice
-  if (index == -1) {
-    res.status(404);
-    res.send("Not Found!");
+  const result = await repository.remove(id);
+
+  if (result.acknowledged) {
+    res.status(202).send("Proyecto eliminado con exito!");
+  } else {
+    res.status(500).send("Imposible eliminar proyecto!");
   }
-
-  // eliminar con splice
-  projects.splice(index, 1);
-
-  // responder "ok!"
-  res.send("ok!");
 }
 
-export function update(req, res) {
-  // extraer el id
+export async function update(req, res) {
   const id = req.params.id;
-  // buscar proyecto
-  const project = projects.find((p) => p.id == id);
-  // validar si se encontro el proyecto
-  if (!project) {
-    res.status(404);
-    res.send("Proyecto no encontrado!");
-  }
-
-  // actualizar obj proyecto con el body
   const body = req.body;
-  project.name = body.name;
-
-  res.send("ok!");
+  const result = await repository.update(id, body);
+  if (result.acknowledged) {
+    res.status(202).send("Proyecto actualizado con exito");
+  } else {
+    res.status(500).send("Proyecto no actualizado!");
+  }
 }
 
-export default { all, create, one, destroy, update };
+export default { all, create, one, remove, update };
