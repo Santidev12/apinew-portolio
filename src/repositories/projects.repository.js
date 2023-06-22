@@ -1,8 +1,7 @@
-import { MongoClient } from "mongodb";
-
-const mongoUrl = process.env.MONGODB_URL; 
+import { MongoClient, ObjectId } from "mongodb";
 
 async function getDatabase() {
+  const mongoUrl = process.env.MONGODB_URL;
   const client = new MongoClient(mongoUrl);
   await client.connect();
 
@@ -19,4 +18,18 @@ async function all() {
   return result.toArray();
 }
 
-export default { all };
+// one
+async function one(id) {
+  const db = await getDatabase();
+  const collection = db.collection("projects");
+
+  const result = await collection.findOne({ _id: new ObjectId(id) });
+
+  return result;
+}
+
+// create
+// update
+// delete
+
+export default { all, one };

@@ -36,9 +36,9 @@ export function create(req, res) {
   res.send("ok!");
 }
 
-export function one(req, res) {
+export async function one(req, res) {
   const id = req.params.id;
-  const project = projects.find((p) => p.id == id);
+  const project = await repository.one(id);
 
   if (!project) {
     res.status(404);
