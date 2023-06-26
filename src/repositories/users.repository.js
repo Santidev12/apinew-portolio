@@ -1,18 +1,8 @@
-import { MongoClient } from "mongodb";
 import { hash } from "bcrypt";
-
-async function getCollection() {
-  const mongoUrl = process.env.MONGODB_URL;
-  const client = new MongoClient(mongoUrl);
-  await client.connect();
-
-  const db = client.db("portfolio");
-
-  return db.collection("users");
-}
+import { getCollection } from "../clients/mongodb.client.js";
 
 async function register(data) {
-  const collection = await getCollection();
+  const collection = await getCollection("users");
   const exist = await byEmail(data.email);
 
   if (exist) {
@@ -30,7 +20,7 @@ async function register(data) {
 }
 
 async function byEmail(email) {
-  const collection = await getCollection();
+  const collection = await getCollection("users");
 
   return await collection.findOne({ email });
 }
