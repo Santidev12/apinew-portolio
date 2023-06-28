@@ -3,6 +3,7 @@ import projectsRouter from "./routes/projects.routes.js";
 import authRouter from "./routes/auth.routes.js";
 
 import { config } from "dotenv";
+import cors from "cors";
 
 config();
 
@@ -11,6 +12,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 // añade middleware express.json
+app.use(cors());
 app.use(express.json());
 
 // añade las rutas de projects.js
