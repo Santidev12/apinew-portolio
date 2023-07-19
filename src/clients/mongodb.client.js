@@ -10,7 +10,7 @@ async function getCollection(name) {
 
   await client.connect();
 
-  const db = client.db("portfolio");
+  const db = client.db("Portfolio");
 
   return db.collection(name);
 }

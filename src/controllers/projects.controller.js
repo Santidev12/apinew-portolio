@@ -1,12 +1,6 @@
 import repository from "../repositories/projects.repository.js";
 
-let projects = [
-  { id: 2, name: "Mi proyecto potato 2", img: "/assets/images/shop.svg" }, //0
-  { id: 1, name: "Mi proyecto carrot 1", img: "/assets/images/shop.svg" }, //1
-  { id: 3, name: "Mi proyecto potato 3", img: "/assets/images/shop.svg" }, //2
-  { id: 4, name: "Mi proyecto carrot 4", img: "/assets/images/shop.svg" }, //3
-];
-
+// 
 export async function all(req, res) {
   const query = req.query;
   const dbprojects = await repository.all();
@@ -21,7 +15,7 @@ export async function all(req, res) {
   const search = query.search.toLowerCase();
 
   // Filtrar projects
-  const result = projects.filter((p) => {
+  const result = dbprojects.filter((p) => {
     const name = p.name.toLowerCase();
     return name.match(search);
   });
