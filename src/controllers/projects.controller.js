@@ -24,7 +24,11 @@ export async function all(req, res) {
 }
 
 export async function create(req, res) {
+
   const project = req.body;
+  if(project._id == ""){
+    delete project._id;
+  }
   const result = await repository.create(project);
 
   if (result.acknowledged) {
@@ -58,6 +62,9 @@ export async function remove(req, res) {
 export async function update(req, res) {
   const id = req.params.id;
   const body = req.body;
+  if(body._id){
+    delete body._id;
+  }
   const result = await repository.update(id, body);
   if (result.acknowledged) {
     res.status(202).send("Proyecto actualizado con exito");
